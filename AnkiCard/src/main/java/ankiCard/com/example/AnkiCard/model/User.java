@@ -18,6 +18,8 @@ import java.util.Set;
 @Entity
 public class User extends IdBasedEntity{
 
+
+
     @Column(nullable = false, unique = true, length = 45)
     private String email;
 
@@ -35,8 +37,10 @@ public class User extends IdBasedEntity{
     @Column(name = "created_time")
     private Date createdTime;
 
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore()
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
     private Set<Desk> desks;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -46,6 +50,11 @@ public class User extends IdBasedEntity{
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
+    public User(String email, String password){
+        this.email = email;
+        this.password = password;
+    }
 
 
 }

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -19,15 +20,21 @@ public class Desk extends IdBasedEntity{
     @Column(name = "desk_name")
     private String nameDesk;
 
-//    @Column(name = "user_id")
-//    private Integer userId;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "desk")
+    @Column(name = "create_time")
+    private Date createTime;
+
+    @Column(name = "update_time")
+    private Date updateTime;
+
+    @OneToMany(mappedBy = "desk" , fetch = FetchType.LAZY)
     @JsonIgnore()
     private Set<Card> cards;
+
+    @OneToOne(mappedBy = "desk")
+    private DailyLimit dailyLimit;
 
 }
