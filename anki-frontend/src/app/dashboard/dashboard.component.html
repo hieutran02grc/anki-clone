@@ -1,3 +1,44 @@
 
 
-<h1>xin chao 500 anh em</h1>
+<app-header></app-header>
+
+<div class="container mt-5">
+    <h2>Data Table</h2>
+
+    <button mat-button (click)="addNewDesk()">Open dialog</button>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Desk Name</th>
+          <th>New Card Per Day</th>
+          <th>Max Review</th>
+          <th>Action</th>
+        </tr>
+      </thead>       
+      <tbody>
+        <tr *ngFor="let item of listDesk" (click)="learnDesk(item)">
+          <td>{{ item.id }}</td>
+          <td>{{ item.deskName }}</td>
+          <td>{{ item.newCardPerDay }}</td>
+          <td>{{ item.maxReview }}</td>
+          <td>
+            <button >Configure</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+        <!-- Add Form -->
+        <!-- <div *ngIf="showAddFormFlag">
+          <form (submit)="createNewTable()">
+              <label for="newDeskName">New Desk Name:</label>
+              <input type="text" id="newDeskName" >
+              <button type="submit">Create Table</button>
+          </form>
+      </div> -->
+    
+
+  </div>
+  

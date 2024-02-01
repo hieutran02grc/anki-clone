@@ -7,8 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { NotFoundComponent } from './notfound.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatIconAnchor } from '@angular/material/button';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoginComponent } from './login/login.component';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -19,18 +19,21 @@ import { DeskComponent } from './desk/desk.component';
 import { SignupComponent } from './singup/singup.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
-import { HttpClientModule  } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule  } from '@angular/common/http';
+import { AuthInterceptor } from './_interceptor/auth.interceptor';
+import { DialogNewDesk } from './meterial-component/dialog/desk/newDesk.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent,
     NotFoundComponent,
     LoginComponent,
     DeskComponent,
-    SignupComponent
+    SignupComponent,
+    DialogNewDesk,
+    
   ],
   imports: [
     BrowserModule,
@@ -47,8 +50,11 @@ import { HttpClientModule  } from '@angular/common/http';
     NgxUiLoaderModule,
     HttpClientModule,
     MatInputModule
+     
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, multi: true, useClass:  AuthInterceptor}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
